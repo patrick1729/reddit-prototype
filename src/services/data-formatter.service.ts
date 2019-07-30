@@ -33,6 +33,7 @@ export class DataFormatterService {
                 object[key] = data.data[key];
             }
             object = this.getLikeCount(object);
+            object = this.getCommentCount(object);
             object = this.getMediaType(object);
             return object;
         });
@@ -53,6 +54,18 @@ export class DataFormatterService {
     }
 
     /**
+     * Calculates the net comment count of any feed
+     *
+     * @param {*} data Data to be formatted
+     * @returns {*} Formatted data with net comment count
+     * @memberof DataFormatterService
+     */
+    getCommentCount(data: any): any {
+        data.num_comments = (data.num_comments > 1024) ? `${Math.floor(data.num_comments / 1024)}k` : data.num_comments;
+        return data;
+    }
+
+    /**
      * Calculates the type of media (link, image or video) attached in
      * a feed
      *
@@ -61,7 +74,7 @@ export class DataFormatterService {
      * @memberof DataFormatterService
      */
     getMediaType(data: any): any {
-        if (data.url && data.url.endsWith('.jpg') || data.url.endsWith('.png')) {
+        if (data.url && data.url.endsWith('.jpg') || data.url.endsWith('.png') || data.url.endsWith('.gif')) {
             data['isImage'] = true;
         } else if (data.preview && data.preview.reddit_video_preview) {
             data.url = data.preview.reddit_video_preview.fallback_url;
