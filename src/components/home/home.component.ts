@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
      * @memberof HomeComponent
      */
     ngOnInit(): void {
-        this.httpConnectHandler.callWebservice('http://www.reddit.com/.json').subscribe(
+        this.httpConnectHandler.callWebservice('https://www.reddit.com/.json').subscribe(
             (data) => {
                 this.redditFeeds = this.dataFormatterService.formatHomeData(data.data.children, HOME_DATA_KEYS);
                 console.log(this.redditFeeds);
