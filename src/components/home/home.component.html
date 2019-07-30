@@ -1,0 +1,25 @@
+<div class="header"></div>
+<mat-progress-bar *ngIf="!redditFeeds" mode="indeterminate"></mat-progress-bar>
+<div class="content">
+    <mat-card class="feed-card" *ngFor="let feed of redditFeeds; index as i">
+        <mat-card-header>
+            <div mat-card-avatar class="avatar-image"></div>
+            <mat-card-title>{{ feed.author }}</mat-card-title>
+            <mat-card-subtitle>{{ feed.created | date: 'medium':'UTC+0430'}}</mat-card-subtitle>
+        </mat-card-header>
+        <img *ngIf="feed.isImage" mat-card-image [src]="feed.url" alt="Photo of a Shiba Inu">
+        <iframe class="video-player" *ngIf="feed.isVideo" [src]="feed.url" frameborder="0" allowfullscreen></iframe>
+        <mat-card-content>
+            <p>{{ feed.title }}</p>
+            <a *ngIf="feed.isLink" [attr.href]="feed.url" class="hyperlink">View</a>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)="likePost(i)">
+                <div class="like-button" [class.active]="feed.isLiked">{{ feed.ups }}</div>
+            </button>
+            <button mat-button>
+                <div class="comment-button">{{ feed.num_comments }}</div>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
