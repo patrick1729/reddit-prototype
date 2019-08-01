@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule, Routes } from '@angular/router';
+
+import { MaterialModule } from 'src/app/material.module';
 
 import { HomeComponent } from './home.component';
 
@@ -17,10 +15,7 @@ const routes: Routes = [{
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
-        MatCardModule,
-        MatButtonModule,
-        MatProgressBarModule,
-        MatSnackBarModule
+        MaterialModule
     ],
     exports: [RouterModule]
 })
