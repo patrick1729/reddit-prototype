@@ -38,7 +38,7 @@ p {
         @include font-and-color(var(--medium-text-sub-header), var(--color-dodger-blue));
     }
     .comment-text {
-        font-size: var(--medium-text-sub-header);
+        font-size: var(--medium-text);
     }
     .comment-time {
         @include font-and-color(var(--medium-text-sub-header), var(--color-silver));
