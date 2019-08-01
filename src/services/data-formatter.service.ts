@@ -26,18 +26,43 @@ export class DataFormatterService {
      * @returns {Array<any>} Formatted JSON data with requested 'keys' in it
      * @memberof DataFormatterService
      */
-    formatHomeData(dataArray: Array<any>, keys: Array<any>): Array<any> {
+    formatHomeData(dataArray: Array<any>, keys: Array<string>): Array<any> {
         const formattedData = dataArray.map((data) => {
             let object = {};
             for (const key of keys) {
                 object[key] = data.data[key];
             }
-            object = this.getLikeCount(object);
-            object = this.getCommentCount(object);
-            object = this.getMediaType(object);
+            object = this.getMediaType(this.getCommentCount(this.getLikeCount(object)));
             return object;
         });
         return formattedData;
+    }
+
+    /**
+     * Comment data formatter
+     *
+     * @param {*} commentData Data received from API
+     * @param {Array<string>} keys Keys to filter out
+     * @returns {Array<any>} Formatted comment data
+     * @memberof DataFormatterService
+     */
+    formatCommentData(commentData: any, keys: Array<string>): Array<any> {
+        if (commentData) {
+            commentData.pop();  // Remove last entry as it doesn't contain useful data
+            const formattedData = commentData.map((data) => {
+                let object: any = {};
+                for (const key of keys) {
+                    object[key] = data.data[key];
+                }
+                if (data.data && data.data.replies) {
+                    const { data: { children } } = data.data.replies;
+                    object['children'] = this.formatCommentData(children, keys);
+                }
+                object = this.getLikeCount(object);
+                return object;
+            });
+            return formattedData;
+        }
     }
 
     /**
@@ -49,7 +74,7 @@ export class DataFormatterService {
      */
     getLikeCount(data: any): any {
         const difference = data.ups - data.downs;
-        data.ups = (difference > 1024) ? `${Math.floor(difference / 1024)}k` : difference;
+        data.ups = (difference > 1000) ? `${Math.floor(difference / 1000)}k` : String(difference);
         return data;
     }
 
