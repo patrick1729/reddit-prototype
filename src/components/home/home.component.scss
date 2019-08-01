@@ -1,3 +1,8 @@
+mat-progress-bar {
+    position: fixed;
+    top: 50px;
+    z-index: 99;
+}
 .feed-card {
     max-width: 400px;
     margin: 16px auto;
@@ -9,7 +14,7 @@
 .content {
     padding: 8px;
 }
-%shared-image-styles {    
+%shared-image-styles {
     width: 90px;
     text-align: center;
 }
@@ -34,13 +39,11 @@
     height: 200px;
 }
 .hyperlink {
-    color: #01579B;
+    color: var(--color-cobalt);
     text-decoration: none;
 }
 
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px)  {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     /* Tabler devices */
     .feed-card {
         max-width: 600px;
