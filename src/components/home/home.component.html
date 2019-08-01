@@ -1,5 +1,5 @@
 <div class="header"></div>
-<mat-progress-bar *ngIf="!redditFeeds" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="shouldShowProgressBar" mode="indeterminate"></mat-progress-bar>
 <div class="content">
     <mat-card class="feed-card" *ngFor="let feed of redditFeeds; index as i">
         <mat-card-header>
@@ -17,7 +17,7 @@
             <button mat-button (click)="likePost(i)">
                 <div class="like-button" [class.active]="feed.isLiked">{{ feed.ups }}</div>
             </button>
-            <button mat-button>
+            <button mat-button (click)="loadComments(feed.permalink)">
                 <div class="comment-button">{{ feed.num_comments }}</div>
             </button>
         </mat-card-actions>
