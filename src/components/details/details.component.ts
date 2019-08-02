@@ -1,14 +1,13 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Router } from '@angular/router';
 
 import { DataFormatterService } from 'src/services/data-formatter.service';
 import { DataService } from 'src/services/data.service';
 
-import { FeedFlatNode, FeedNode } from './details.interface';
-
 import { DETAILS_DATA_KEYS } from './details.constants';
+import { FeedFlatNode, FeedNode } from './details.interface';
 
 /**
  * Details component, loads the comments on a particular feed
@@ -21,7 +20,7 @@ import { DETAILS_DATA_KEYS } from './details.constants';
     templateUrl: './details.component.html',
     styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent {
+export class DetailsComponent implements AfterViewInit {
 
     /** @ignore */
     constructor(
@@ -75,5 +74,14 @@ export class DetailsComponent {
      */
     navigateBack(): void {
         this.router.navigateByUrl('/home');
+    }
+
+    /**
+     * Scroll to top of the page
+     *
+     * @memberof DetailsComponent
+     */
+    ngAfterViewInit(): void {
+        window.scrollTo(0, 0);
     }
 }
