@@ -1,6 +1,6 @@
 # Reddit Prototype
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9. Click [here](https://reddit-prototype-angular.netlify.app/) for the demo.
 
 ## Development server
 
